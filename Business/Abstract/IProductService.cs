@@ -9,11 +9,14 @@ namespace Business.Abstract
 {
     public interface IProductService
     {
+        //use methods below as services.
         List<Product> GetAll();
-        void Add(Product product); //interfaces methods are default public.
+        List<Product> GetAllByCategoryId(int id);
+        List<Product> GetAllByUnitPrice(decimal min, decimal max);
+
+        void Add(Product product);
         void Update(Product product);
         void Delete(Product product);
 
-        List<Product> GetAllByCategory(int categoryId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -11,39 +12,42 @@ namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        InMemoryProductDal _inMemoryProductDal; //we want to access data.
+        IProductDal _productDal; //we want to access data.
 
-        public ProductManager(InMemoryProductDal inMemoryProductDal)
+        public ProductManager(IProductDal productDal)
         {
-            _inMemoryProductDal = inMemoryProductDal;
+            _productDal = productDal;
         }
 
         public void Add(Product product)
         {
-            _inMemoryProductDal.Add(product);
+            _productDal.Add(product);
         }
 
         public void Delete(Product product)
         {
-            _inMemoryProductDal.Delete(product);
+            _productDal.Delete(product);
         }
 
         public List<Product> GetAll()
         {
             //Business Codes.
-            var allProducts = _inMemoryProductDal.GetAll();
-            return allProducts;
+            return _productDal.GetAll();
         }
 
-        public List<Product> GetAllByCategory(int categoryId)
+        public List<Product> GetAllByCategoryId(int id)
         {
-            var allProductsByCategoryId = _inMemoryProductDal.GetAllByCategory(categoryId);
-            return allProductsByCategoryId;
+            return _productDal.GetAll(product => product.ProductId == id);
+        }
+
+        public List<Product> GetAllByUnitPrice(decimal min, decimal max)
+        {
+            return _productDal.GetAll(p => p.UnitPrice>= min && p.UnitPrice <= max);
         }
 
         public void Update(Product product)
         {
-            _inMemoryProductDal.Update(product);
+            _productDal.Update(product);
         }
     }
 }
