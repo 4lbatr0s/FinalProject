@@ -8,8 +8,23 @@ namespace Console_UI
     {
         static void Main(string[] args)
         {
+            //ProductTest();
+            //CategoryTest();
+
+            EfProductDal efProductDal = new EfProductDal();
+            ProductManager productManager = new ProductManager(efProductDal);
+
+            foreach (var prod in productManager.GetProductDetails())
+            {
+                Console.WriteLine("Product Name: {0},  Category Name: {1}", prod.ProductName, prod.CategoryName);
+            }
+ 
+        }
+
+        private static void CategoryTest()
+        {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-            foreach(var category in categoryManager.GetAll())
+            foreach (var category in categoryManager.GetAll())
             {
                 Console.WriteLine(category.CategoryName);
             }

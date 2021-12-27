@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,11 @@ namespace DataAccess.Concrete.InMemory
         {   //SQL WHERE == LINQ Where.
             var productsByCategoryId = _products.Where(p => p.CategoryId == categoryId).ToList(); //similar to filter() function in the JS
             return productsByCategoryId;
+        }
+
+        public List<ProductDetailDto> GetProductDetails()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Product product)
