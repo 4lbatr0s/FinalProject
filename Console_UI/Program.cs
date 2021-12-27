@@ -2,7 +2,6 @@
 using Business.Concrete;
 using DataAccess.Concrete.InMemory;
 using DataAccess.Concrete.EntityFramework;
-
 namespace Console_UI
 {
     class Program

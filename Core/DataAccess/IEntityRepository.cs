@@ -1,12 +1,12 @@
-﻿using Entities.Abstract;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq; 
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstract
+namespace Core.DataAccess
 {
     //generic constraint . 
     //class: that means T could be a referance type, not only classes.This is a well known wrong.

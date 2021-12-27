@@ -19,4 +19,5 @@ namespace Business.Abstract
         void Delete(Product product);
 
     }
+    
 }
