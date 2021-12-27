@@ -8,6 +8,15 @@ namespace Console_UI
     {
         static void Main(string[] args)
         {
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+            foreach(var category in categoryManager.GetAll())
+            {
+                Console.WriteLine(category.CategoryName);
+            }
+        }
+
+        private static void ProductTest()
+        {
             EfProductDal efProductDal = new EfProductDal();
             ProductManager productManager = new ProductManager(efProductDal);
             //foreach(var product in productManager.GetAll())
@@ -15,7 +24,7 @@ namespace Console_UI
             //    Console.WriteLine(product.ProductName);
             //}
 
-            foreach(var prod in productManager.GetAll())
+            foreach (var prod in productManager.GetAll())
             {
                 Console.WriteLine(prod.ProductName);
             }
