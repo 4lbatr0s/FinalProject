@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -19,41 +21,66 @@ namespace Business.Concrete
         {
             _productDal = productDal;
         }
-
-        public void Add(Product product)
+    
+        public IResult Add(Product product)
         {
-            _productDal.Add(product);
+            if(product.ProductName.Length<2)
+            {
+                //magic string
+                return new ErrorResult(Messages.ProductNameInvalid);
+            }
+             //else is not necissary, because if block involves a return value.
+             _productDal.Add(product);
+              return new SuccessResult(Messages.ProductAdded); // You don't have to pass the true parameter, because you've already created that in the Result class.
+              //return new SuccessResult(); //this'd work fine as well.
+       
+
         }
 
-        public void Delete(Product product)
+        public IResult Delete(Product product)
         {
             _productDal.Delete(product);
+            return new Result(true, "deleted");
+
         }
 
-        public List<Product> GetAll()
+        IDataResults <List<Product>> GetAll()
         {
-            //Business Codes.
-            return _productDal.GetAll();
+            if(DateTime.Now.Hour == 22)
+            {
+                return new ErrorResult();
+            }
+
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), true, "All values");
         }
 
-        public List<Product> GetAllByCategoryId(int id)
+
+        public IDataResults<List<Product>> GetAllByCategoryId(int id)
         {
-            return _productDal.GetAll(product => product.ProductId == id);
+            return new DataResult<List<Product>>(_productDal.GetAll(product => product.ProductId == id), true, "Products fetched by category ids");
         }
 
-        public List<Product> GetAllByUnitPrice(decimal min, decimal max)
+        public IDataResults<List<Product>> GetAllByUnitPrice(decimal min, decimal max)
         {
-            return _productDal.GetAll(p => p.UnitPrice>= min && p.UnitPrice <= max);
+            return new DataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice>= min && p.UnitPrice <= max), true, "Products fetched by unit prices");
         }
 
-        public List<ProductDetailDto> GetProductDetails()
+        public IDataResults<Product> GetById(int id)
         {
-            return _productDal.GetProductDetails();
+            return new DataResult<Product>(_productDal.Get(p => p.ProductId == id), true, "Product fetched by id");
         }
 
-        public void Update(Product product)
+        public IDataResults<List<ProductDetailDto>> GetProductDetails()
+        {
+            return new DataResult<List<ProductDetailDto>>(_productDal.GetProductDetails(), true, "Fetched product details");
+        }
+
+        public IResult Update(Product product)
         {
             _productDal.Update(product);
+            return new Result();
         }
+
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using Entities.DTO;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,18 @@ namespace Business.Abstract
     public interface IProductService
     {
         //use methods below as services.
-        List<Product> GetAll();
-        List<Product> GetAllByCategoryId(int id);
-        List<Product> GetAllByUnitPrice(decimal min, decimal max);
+        IDataResults<List<Product>> GetAll(); //we cannot change List to IResult because we cannot return values.
+        //T in IDataResults is equal to List<> structure.
+        IDataResults<List<Product>> GetAllByCategoryId(int id);
+        IDataResults<List<Product>> GetAllByUnitPrice(decimal min, decimal max);
 
-        void Add(Product product);
-        void Update(Product product);
-        void Delete(Product product);
+        IDataResults<Product> GetById(int id);
 
-        List<ProductDetailDto> GetProductDetails();
+        IResult Add(Product product); //don't return void anymore, return IResult.
+        IResult Update(Product product);
+        IResult Delete(Product product);
+
+        IDataResults<List<ProductDetailDto>> GetProductDetails();
 
     }
     
