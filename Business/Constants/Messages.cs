@@ -10,6 +10,9 @@ namespace Business.Constants
     {
         public static string ProductAdded = "Product Added";
         public static string ProductNameInvalid = "Product Name is Invalid!"; // create Pascal key structure for public declarations. Private declarations goes with camelCase
-       
+        public static string MaintenanceTime = "No time!";
+        public static string ProductsListed = "Products are listed";
+
+        public static string ProductUpdated { get; internal set; }
     }
 }

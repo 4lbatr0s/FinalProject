@@ -14,11 +14,21 @@ namespace Console_UI
             EfProductDal efProductDal = new EfProductDal();
             ProductManager productManager = new ProductManager(efProductDal);
 
-            foreach (var prod in productManager.GetProductDetails())
+            var result = productManager.GetProductDetails();
+            if(result.Success)
             {
-                Console.WriteLine("Product Name: {0},  Category Name: {1}", prod.ProductName, prod.CategoryName);
+                foreach (var prod in result.Data)
+                {
+                    Console.WriteLine("Product Name: {0},  Category Name: {1}", prod.ProductName, prod.CategoryName);
+                }
+
             }
- 
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+
         }
 
         private static void CategoryTest()
@@ -39,17 +49,17 @@ namespace Console_UI
             //    Console.WriteLine(product.ProductName);
             //}
 
-            foreach (var prod in productManager.GetAll())
+            foreach (var prod in productManager.GetAll().Data)
             {
                 Console.WriteLine(prod.ProductName);
             }
 
-            foreach (var prod in productManager.GetAllByCategoryId(50))
+            foreach (var prod in productManager.GetAllByCategoryId(50).Data)
             {
                 Console.WriteLine("{0}, price: {1}", prod.ProductName, prod.UnitPrice);
             }
 
-            foreach (var prod in productManager.GetAllByUnitPrice(50, 100))
+            foreach (var prod in productManager.GetAllByUnitPrice(50, 100).Data)
             {
                 Console.WriteLine("{0}, price: {1}", prod.ProductName, prod.UnitPrice);
             }

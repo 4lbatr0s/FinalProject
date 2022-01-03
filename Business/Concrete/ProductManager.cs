@@ -44,41 +44,41 @@ namespace Business.Concrete
 
         }
 
-        IDataResults <List<Product>> GetAll()
+        public IDataResults <List<Product>> GetAll()
         {
             if(DateTime.Now.Hour == 22)
             {
-                return new ErrorResult();
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
 
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), true, "All values");
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
         }
 
 
         public IDataResults<List<Product>> GetAllByCategoryId(int id)
         {
-            return new DataResult<List<Product>>(_productDal.GetAll(product => product.ProductId == id), true, "Products fetched by category ids");
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(product => product.ProductId == id));
         }
 
         public IDataResults<List<Product>> GetAllByUnitPrice(decimal min, decimal max)
         {
-            return new DataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice>= min && p.UnitPrice <= max), true, "Products fetched by unit prices");
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice>= min && p.UnitPrice <= max));
         }
 
         public IDataResults<Product> GetById(int id)
         {
-            return new DataResult<Product>(_productDal.Get(p => p.ProductId == id), true, "Product fetched by id");
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == id));
         }
 
         public IDataResults<List<ProductDetailDto>> GetProductDetails()
         {
-            return new DataResult<List<ProductDetailDto>>(_productDal.GetProductDetails(), true, "Fetched product details");
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
 
         public IResult Update(Product product)
         {
             _productDal.Update(product);
-            return new Result();
+            return new Result(true, Messages.ProductUpdated);
         }
 
         
