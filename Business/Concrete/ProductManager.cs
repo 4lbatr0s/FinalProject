@@ -46,12 +46,14 @@ namespace Business.Concrete
 
         public IDataResults <List<Product>> GetAll()
         {
-            if(DateTime.Now.Hour == 22)
+            if(DateTime.Now.Hour == 16)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
-
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
+            else
+            {
+                return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
+            }
         }
 
 

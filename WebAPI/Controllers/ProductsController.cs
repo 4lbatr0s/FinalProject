@@ -23,11 +23,44 @@ namespace WebAPI.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        public List<Product> Get()
+        [HttpGet("getall")]
+        public IActionResult Get()
         {
-            IProductService productService = new ProductManager(new EfProductDal());
-            return productService.GetAll().Data;
+            var result = _productService.GetAll();
+            if(result.Success)
+            {
+                //return Ok(result.Data); //if result returns true, then return 200 status code and the data.
+                return Ok(result); //returs message too.
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+
+        [HttpPost("add")]
+        public IActionResult Post(Product product) //clients request passess here.
+        {
+            var result = _productService.Add(product);
+            if (result.Success)
+            {
+                return Ok(result); // data itself, Add method returns IResult not IDataResult.
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int productId)
+        {
+            var result = _productService.GetById(productId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
     }
 }
