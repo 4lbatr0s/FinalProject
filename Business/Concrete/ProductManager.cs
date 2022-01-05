@@ -15,7 +15,7 @@ namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        IProductDal _productDal; //we want to access data.
+        IProductDal _productDal; //we want to access data. //loosely dependency 
 
         public ProductManager(IProductDal productDal)
         {

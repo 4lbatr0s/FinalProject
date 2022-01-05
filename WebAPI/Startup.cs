@@ -34,8 +34,8 @@ namespace WebAPI
             //Because Autofac provides better solutions for AOP implementations.
             //Autofac, Ninject, CastleWindsor, StructureMap, LightInjet, DryInject --> IoC Containers.
             services.AddControllers();
-            services.AddSingleton<IProductService, ProductManager>(); //create a reference in the background.
-            services.AddSingleton<IProductDal, EfProductDal>();
+            //services.AddSingleton<IProductService, ProductManager>(); //create a reference in the background.
+            //services.AddSingleton<IProductDal, EfProductDal>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
