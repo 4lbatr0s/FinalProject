@@ -14,5 +14,6 @@ namespace Business.Constants
         public static string ProductsListed = "Products are listed";
 
         public static string ProductUpdated { get; internal set; }
+        public static string UnitPriceInvalid { get; internal set; }
     }
 }

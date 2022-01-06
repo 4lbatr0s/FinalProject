@@ -24,6 +24,8 @@ namespace Core.DataAccess.EntityFramework
                 addedEntity.State = EntityState.Added; //add this entity to database
                 context.SaveChanges(); //save changes.
             }
+
+            
         }
 
         public void Delete(TEntity entity)
