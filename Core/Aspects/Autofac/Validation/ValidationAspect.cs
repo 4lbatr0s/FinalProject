@@ -15,9 +15,9 @@ namespace Core.Aspects.Autofac.Validation
         private Type _validatorType;
         //we use Type value type because ValidationAspect is an Attribute.
         public ValidationAspect(Type validatorType) //send me the validator type. This is where we do [ValidationAspect (typeof(EntityValidator)) etc..
-        {
+        {   
             //if validatorType is not an IValidator, throw exception.
-            if (!typeof(IValidator).IsAssignableFrom(validatorType))
+            if (!typeof(IValidator).IsAssignableFrom(validatorType)) //defensive coding logic.
             {
                 throw new System.Exception("This is not a validation class!");
             }

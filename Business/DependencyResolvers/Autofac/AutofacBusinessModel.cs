@@ -20,13 +20,13 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
 
 
+                
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly(); //From the executed program
 
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
-                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
-                {
-                    Selector = new AspectInterceptorSelector()
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces() //find the implemented interfaces which are above (IProduct,ICategory etc..)
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions() 
+                {               //AspectInterceptorSelector works before every class declaration. It assess if there are any aspects for that class [...] is an Aspect, it is an attribute. 
+                    Selector = new AspectInterceptorSelector() //Have AspectInterceptorSelector executed for the implemented interfaces. 
                 }).SingleInstance();
         }
     }

@@ -14,7 +14,7 @@ namespace Business.ValidationRules.FluentValidation
         {
             RuleFor(p => p.ProductName).MinimumLength(2); //product's name lenght should be min 2 
             RuleFor(p => p.ProductName).NotEmpty();
-            RuleFor(p => p.UnitPrice).NotEmpty();
+            RuleFor(p => p.UnitPrice).NotEmpty(); 
             RuleFor(p => p.UnitPrice).GreaterThan(0); //there are so many functions in the FluentValidator library.
             RuleFor(p => p.UnitPrice).GreaterThan(10).When(p => p.CategoryId == 1); //if it's a drink, minimum value should be 11
 

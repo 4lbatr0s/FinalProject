@@ -9,10 +9,10 @@ namespace Core.Utilities.Interceptors
         protected virtual void OnAfter(IInvocation invocation) { }
         protected virtual void OnException(IInvocation invocation, System.Exception e) { }
         protected virtual void OnSuccess(IInvocation invocation) { }
-        public override void Intercept(IInvocation invocation)
+        public override void Intercept(IInvocation invocation) //invoke one of the functions above, so invoked function will invoke another function!
         {
             var isSuccess = true;
-            OnBefore(invocation);
+            OnBefore(invocation); //this invocation could be let's Add() function.
             try
             {
                 invocation.Proceed();
