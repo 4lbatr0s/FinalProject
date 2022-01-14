@@ -15,7 +15,10 @@ namespace Business.Constants
 
         public static string ProductUpdated { get; internal set; }
         public static string UnitPriceInvalid { get; internal set; }
-        public static string ProductNameExistsError { get; internal set; }
+        public static string CategoryNumberIsRestricted { get; internal set; }
+        public static string CategoryLimitExceeded = "Category limit exceeded";
+
+        public static string ProductNameExistsError = "Product name already exists";
 
         public static string ProductCountOfCategoryError = "Category cannot contain more than 10 products!";
 
