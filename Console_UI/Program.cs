@@ -43,7 +43,7 @@ namespace Console_UI
         private static void ProductTest()
         {
             EfProductDal efProductDal = new EfProductDal();
-            ProductManager productManager = new ProductManager(efProductDal);
+            ProductManager productManager = new ProductManager(efProductDal, new CategoryManager(new EfCategoryDal()));
             //foreach(var product in productManager.GetAll())
             //{
             //    Console.WriteLine(product.ProductName);

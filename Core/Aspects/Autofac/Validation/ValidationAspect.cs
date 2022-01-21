@@ -19,10 +19,10 @@ namespace Core.Aspects.Autofac.Validation
             //if validatorType is not an IValidator, throw exception.
             if (!typeof(IValidator).IsAssignableFrom(validatorType)) //defensive coding logic.
             {
-                throw new System.Exception("This is not a validation class!");
+                throw new Exception("This is not a validation class!");
             }
 
-            _validatorType = validatorType;
+            _validatorType = validatorType; //for instance validator type is ProductValidator, so use it's rules.
         }
 
         //we fill in the OnBefore Function that we inherit from MethodInterception class.So the ValidationAspect (typeof(EntityValidator)) will work before the function.
