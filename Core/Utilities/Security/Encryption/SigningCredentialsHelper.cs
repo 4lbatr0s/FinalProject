@@ -6,7 +6,7 @@ namespace Core.Utilities.Security.Encryption
     {
         //creadential: username, password etc...
         //here our credential is our SecurityKey, remember the API-Business-Database-JWT relation illustration on the Joplin.
-        public static SigningCredentials CreateSigningCredentials(SecurityKey securityKey)
+        public static SigningCredentials CreateSigningCredentials(SecurityKey securityKey) //this securityKey value comes from SecurityKeyHelper.cs (we implement it in the JwtHelper.cs file)
         {
             //this here does a hashing, uses securityKey as the key value and HmacSha512 as the algorithm.
             return new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);

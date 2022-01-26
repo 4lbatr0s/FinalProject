@@ -13,7 +13,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductsController : ControllerBase    
     {
         //Loosely coupled:gevşek bağımlılık, soyut yapıya bağımlılık.
         IProductService _productService; //naming convention
@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Post(Product product) //clients request passess here.
         {
-            var result = _productService.Add(product);
+            var result =  _productService.Add(product);
             if (result.Success)
             {
                 return Ok(result); // data itself, Add method returns IResult not IDataResult.

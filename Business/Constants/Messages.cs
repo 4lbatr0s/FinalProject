@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +15,18 @@ namespace Business.Constants
         public static string MaintenanceTime = "No time!";
         public static string ProductsListed = "Products are listed";
 
-        public static string ProductUpdated { get; internal set; }
-        public static string UnitPriceInvalid { get; internal set; }
-        public static string CategoryNumberIsRestricted { get; internal set; }
+        public static string ProductUpdated = "Product Updated";
+        public static string UnitPriceInvalid = "Unit price is invalid";
+        public static string CategoryNumberIsRestricted = "Category number is restricted";
+        public static string UserRegistered = "User registered";
+        public static string UserNotFound = "User is not found.";
+        public static string PasswordError = "Password error.";
+        public static string SuccessfulLogin = "Successful login";
+        public static string UserAlreadyExists = "This user already exists";
+        public static string AccessTokenCreated = "Access token is created";
+
+        public static string AuthorizationDenied = "Authorization is denied";
+
         public static string CategoryLimitExceeded = "Category limit exceeded";
 
         public static string ProductNameExistsError = "Product name already exists";

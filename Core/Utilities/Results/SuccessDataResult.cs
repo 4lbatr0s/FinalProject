@@ -25,7 +25,7 @@ namespace Core.Utilities.Results
         }
 
         //default with no message.
-        public SuccessDataResult():base(default,true) 
+        public SuccessDataResult(IDataResult<Entities.Concrete.User> userToCheck) :base(default,true) 
         {
 
         }
