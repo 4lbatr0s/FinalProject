@@ -49,7 +49,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
             
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordHash))
+            if (!(HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt)))
             {
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
@@ -61,10 +61,11 @@ namespace Business.Concrete
         {
             if (_userService.GetByMail(email) != null)
             {
-                return new ErrorResult(Messages.UserAlreadyExists);
+                return new SuccessResult();
             }
-            return new SuccessResult();
+            return new ErrorResult(Messages.UserAlreadyExists);
         }
+
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {

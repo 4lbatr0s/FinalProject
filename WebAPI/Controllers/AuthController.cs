@@ -41,15 +41,15 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)
         {
-                //UserExists function returns a false value if user already exists, true if does not.
-            var userExists = _authService.UserExists(userForRegisterDto.Email); //check whether user already exists or not.
+            //UserExists function returns a false value if user already exists, true if does not.
+            var userExists = _authService.UserExists(userForRegisterDto.Email);
             if (!userExists.Success)
-            {
+            {   
                 return BadRequest(userExists.Message);
             }
             //we pass the password to create hash value, dto to save our user in database.
             var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password);
-            var result = _authService.CreateAccessToken(registerResult.Data); //creates the access token by using an ITokenHelper returns token value and success message.
+            var result = _authService.CreateAccessToken(registerResult.Data);
             if (result.Success)
             {
                 return Ok(result.Data);
