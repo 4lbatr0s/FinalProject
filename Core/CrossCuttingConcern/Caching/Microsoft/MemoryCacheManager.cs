@@ -30,6 +30,11 @@ namespace Core.CrossCuttingConcern.Caching.Microsoft
             return _memoryCache.Get<T>(key);
         }
 
+        public object Get(string key)
+        {
+            return _memoryCache.Get(key);
+        }
+
         public bool IsAdd(string key)
         {
             return _memoryCache.TryGetValue(key, out _);//just return if value exists in the cache or not, do not return the data from the cache. //this is why we wrote out _ , it is a standart in .NET

@@ -25,6 +25,8 @@ namespace Business.Abstract
 
         IDataResult<List<ProductDetailDto>> GetProductDetails();
 
+        IResult AddTransactionalTest(Product product);
+
     }
     
 }

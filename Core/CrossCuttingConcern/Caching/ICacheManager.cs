@@ -14,6 +14,7 @@ namespace Core.CrossCuttingConcern.Caching
         void Add(string key, object value, int duration);
 
         T Get<T>(string key); //explanation: I'll send you a key value, depending on that, send me the value from the cache
+        object Get(string key);//same as the function above, just need to type conversion.
         bool IsAdd(string key); //check whether it's in cache or not.
         void Remove(string key); //remove the value from the cache.
         void RemoveByPattern(string pattern); //for instance: remove values that contains "Get" word.

@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcern;
 using Core.Utilities.Business;
@@ -34,6 +35,7 @@ namespace Business.Concrete
 
         [SecuredOperation("product.add, admin")]
         [ValidationAspect (typeof(ProductValidator))] //validate this method by using ProductValidator.
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             var result = BusinessRules.Run(CheckIfProductCountOfCategoryCorrect(product.CategoryId),
@@ -56,6 +58,7 @@ namespace Business.Concrete
 
         }
 
+        [CacheAspect] //key,value
         public IDataResult <List<Product>> GetAll()
         {
             if(DateTime.Now.Hour == 16)
@@ -79,6 +82,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice>= min && p.UnitPrice <= max));
         }
 
+        [CacheAspect] //key,value
         public IDataResult<Product> GetById(int id)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == id));
@@ -91,6 +95,7 @@ namespace Business.Concrete
 
 
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")] //only remove the caches that are created for IProductService and has got a Get keyword inside of it.
         public IResult Update(Product product)
         {
  
@@ -139,6 +144,18 @@ namespace Business.Concrete
             }
 
             return new SuccessResult();
+        }
+
+        //this is just a scenario to show how Transactions work.
+        public IResult AddTransactionalTest(Product product)
+        {
+            Add(product);
+            if (product.UnitPrice < 10)
+            {
+                throw new Exception("unit price is less than 10");
+            }
+            Add(product);
+            return null;
         }
     }
 }
